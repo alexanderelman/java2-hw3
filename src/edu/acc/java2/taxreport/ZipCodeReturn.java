@@ -16,7 +16,6 @@ public class ZipCodeReturn {
      5 = $100,000 under $200,000
      6 = $200,000 or more
     */
-    private Integer agisize;
     private Integer numReturns;
     private Double adjustedGrossIncome; // in thousands of dollars
     private Integer numReturnsTaxesPaid;
@@ -32,18 +31,11 @@ public class ZipCodeReturn {
         this.zipcode = zipcode;
     }
 
-    public ZipCodeReturn(String state, String zipcode, Integer agisize) {
+    public ZipCodeReturn(String state, String zipcode, Integer numReturns, Double adjustedGrossIncome,
+                         Integer numReturnsTaxesPaid, Integer numReturnsTaxesDueFiling, Double taxesPaid,
+                         Double taxDueAtFilingTime) {
         this.state = state;
         this.zipcode = zipcode;
-        this.agisize = agisize;
-    }
-
-    public ZipCodeReturn(String state, String zipcode, Integer agisize, Integer numReturns, Double adjustedGrossIncome,
-                    Integer numReturnsTaxesPaid, Integer numReturnsTaxesDueFiling, Double taxesPaid,
-                    Double taxDueAtFilingTime) {
-        this.state = state;
-        this.zipcode = zipcode;
-        this.agisize = agisize;
         this.numReturns = numReturns;
         this.adjustedGrossIncome = adjustedGrossIncome;
         this.numReturnsTaxesPaid = numReturnsTaxesPaid;
@@ -68,14 +60,6 @@ public class ZipCodeReturn {
         this.zipcode = zipcode;
     }
 
-    public Integer getAgisize() {
-        return agisize;
-    }
-
-    public void setAgisize(Integer agisize) {
-        this.agisize = agisize;
-    }
-
     public Integer getNumReturns() {
         return numReturns;
     }
@@ -85,7 +69,7 @@ public class ZipCodeReturn {
     }
 
     public Double getAdjustedGrossIncome() {
-        return adjustedGrossIncome * 1000.0;
+        return adjustedGrossIncome;
     }
 
     public void setAdjustedGrossIncome(Double adjustedGrossIncome) {
@@ -96,32 +80,36 @@ public class ZipCodeReturn {
         return numReturnsTaxesPaid;
     }
 
-    public void setNumReturnsTaxesPaid(Integer numReturnsTaxesPaid) {
+    public void setNumTaxReturnsPaid(Integer numReturnsTaxesPaid) {
         this.numReturnsTaxesPaid = numReturnsTaxesPaid;
     }
 
-    public Integer getNumReturnsTaxesDueFiling() {
+    public Integer getNumTaxReturnsDueAtFiling() {
         return numReturnsTaxesDueFiling;
     }
 
     public Double getTaxesPaid() {
-        return taxesPaid * 1000.0;
+        return taxesPaid;
     }
 
     public void setTaxesPaid(Double taxesPaid) {
         this.taxesPaid = taxesPaid;
     }
 
-    public void setNumReturnsTaxesDueFiling(Integer numReturnsTaxesDueFiling) {
+    public void setNumTaxReturnsDueAtFiling(Integer numReturnsTaxesDueFiling) {
         this.numReturnsTaxesDueFiling = numReturnsTaxesDueFiling;
     }
 
-    public Double getTaxDueAtFilingTime() {
-        return taxDueAtFilingTime * 1000.0;
+    public Double getTaxesDueAtFiling() {
+        return taxDueAtFilingTime;
     }
 
-    public void setTaxDueAtFilingTime(Double taxDueAtFilingTime) {
+    public void setTaxesDueAtFiling(Double taxDueAtFilingTime) {
         this.taxDueAtFilingTime = taxDueAtFilingTime;
+    }
+
+    public Double getPerCapitaAgi() {
+        return (this.adjustedGrossIncome * 1000.0 / this.numReturns);
     }
 
     @java.lang.Override
@@ -129,7 +117,6 @@ public class ZipCodeReturn {
         return "ZipCodeReturn{" +
                 "state='" + state + '\'' +
                 ", zipcode='" + zipcode + '\'' +
-                ", agisize=" + agisize +
                 '}';
     }
 }
